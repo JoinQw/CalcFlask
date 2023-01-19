@@ -1,0 +1,100 @@
+body{
+    background-color: rgb(16, 67, 2);
+    font-size: 100%;
+}
+.V{
+    font-weight: bold;
+}
+.cverl{
+    margin: 0;
+    text-align: center;
+    color: rgb(245, 222, 179);
+}
+.data{
+    text-align: center;
+    margin: 0 0 15px 5px;
+    display: block;
+    font-weight: bold;
+    font-size: 250%;
+    color: rgb(245, 222, 179);
+}
+.P{
+    font-weight: bold;
+    color: rgb(244, 203, 126);
+}
+.vnytr{
+    position: absolute;
+    border: solid;
+    border-width: 1px;
+    color: rgb(245, 222, 179);
+    text-align: left;
+    align-items: center;
+    margin-left: 128ex;
+    margin-top: -15em;
+    position:absolute;
+    padding: 10px;
+    overflow: auto;
+    font-size: 14pt;
+    
+}
+
+.field {clear:both; text-align:center; line-height:25px;}
+label {float:center; padding-right:10px;}
+.main {
+    margin-right: 2em;
+    float:center
+}
+select{
+    margin-right: 4em;
+    margin-left: 25px;
+    font-size: 14pt;
+    text-align: center;
+    color: aliceblue;
+    background: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+
+}
+    select:focus{
+        background-color: rgb(16, 67, 2);
+        outline: none; /* Убираем контур */
+        border-bottom: 2px solid #1976D2; /* Синяя линия снизу */
+    }
+input {
+    width: 15%; /* Ширина поля */
+    text-align: center;
+    box-sizing: border-box; /* Ширина не учитывает padding */
+    margin: 10px 0; /* Отступы сверху и снизу */
+    padding: 15px 0; /* Поля вокруг текста */
+    font-size: 12pt;
+    border: none; /* Убираем рамку */
+    color: aliceblue;
+    border-bottom: 1px solid rgb(255, 255, 255); /* Линия снизу */
+    background: transparent; /* Прозрачный фон */
+   }
+   input:focus {
+    outline: none; /* Убираем контур */
+    border-bottom: 2px solid #1976D2; /* Синяя линия снизу */
+   }
+   input::placeholder {
+    transition: 0.2s; /* Время трансформации */
+    color: rgb(219, 200, 200); /* Цвет подсказки */
+   }
+   input:focus::placeholder { 
+    font-size: 8px; /* Размер шрифта */
+    transform: translateY(-16px); /* Сдвигаем вверх */
+   }
+input[type=submit]{
+    position: static; 
+    float: center;
+    text-align: center;
+    width: 255px;
+    height: 40px;
+    display: block;
+    margin-left: 75ex;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.35rem;
+    background-color: rgb(16, 67, 2);
+    color: rgb(245, 222, 179);
+    transition: border-color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;
+
+}

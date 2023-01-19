@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Калькулятор фрезировщика</title>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/frez.css') }}">
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function() { // событие загрузки страницы
+
+      // выбираем на странице все элементы типа textarea и input
+      document.querySelectorAll('textarea, input', 'option').forEach(function(e) {
+      // если данные значения уже записаны в sessionStorage, то вставляем их в поля формы
+      // путём этого мы как раз берём данные из памяти браузера, если страница была случайно перезагружена
+      if(e.value === '') e.value = window.sessionStorage.getItem(e.name, e.value);
+      // на событие ввода данных (включая вставку с помощью мыши) вешаем обработчик
+      e.addEventListener('input', function() {
+      // и записываем в sessionStorage данные, в качестве имени используя атрибут name поля элемента ввода
+      window.sessionStorage.setItem(e.name, e.value);
+      })
+      })
+      }); 
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+      var item = localStorage.getItem('material_frez');
+      var select = document.getElementById("material_frez");
+      select.value = item;
+      });
+      function submitForm(){
+      var select = document.getElementById("material_frez");
+      var value = select.options[select.selectedIndex].value;
+      localStorage.setItem('material_frez', value);
+      }
+    </script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function(){
+          var item = localStorage.getItem('diametr_frez');
+          var select = document.getElementById("diametr_frez");
+          select.value = item;
+          });
+          function submitForm2(){
+          var select = document.getElementById("diametr_frez");
+          var value = select.options[select.selectedIndex].value;
+          localStorage.setItem('diametr_frez', value);
+          }
+        </script>
+  </head>
+  <body>
+    <div class="frez1">
+      <image class="img" src="{{url_for('static', filename='frez.png')}}" width="450" height="260" ></image> 
+    </div>
+    <div class="frez2">
+      <image class="img" src="{{url_for('static', filename='frez2.png')}}" width="380" height="250" ></image>
+    </div>
+   
+    <br>
+    
+    <form method="post" action="{{url_for('calc_frez')}}" id="calc_frez" class="frez" onsubmit="submitForm(), submitForm2()">
+      <h1 style="font-size:255%">Калькулятор фрезировщика</h1>
+      <p class="data">Исходные данные</p>
+      <div class="main">
+        <div class="field">
+          <label for="material_frez">Выберите марку материала:</label>
+          <select id="material_frez" name="material_frez" class="material_frez"> 
+            <option value="uglerodistaya_legirovannaya" name="uglerodistaya_legirovannaya">Углеродистая и легированная</option>
+            <option  value="korozinostoikie_zharoprochnaya" name="korozinostoikie_zharoprochnaya">Коррозионностойкие и жаропрочные</option>
+            <option  value="mednie_alluminii" name="mednie_alluminii">Медные и аллюминиевые сплавы</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="diametr_frez">Выберите диаметр фрезы( D, мм ): </label>
+          <select id="diametr_frez" name="diametr_frez" class="diametr_frez"> 
+            <option value="6" name="6">6</option>
+            <option  value="8" name="8">8</option>
+            <option  value="10" name="10">10</option>
+            <option  value="12" name="12">12</option>
+            <option  value="16" name="16">16</option>
+            <option  value="20" name="20">20</option>
+            <option  value="25" name="25">25</option>
+            <option  value="32" name="32">32</option>
+            <option  value="40" name="40">40</option>
+            <option  value="50" name="50">50</option>
+            <option  value="63" name="63">63</option>            
+          </select>
+        </div>
+        <label>Количество зубьев фрезы( N, шт ): {{kolichestvo_frez}}</label>
+        <div class="field">
+         
+          <label for="Input1_frez">Введите ширину обрабатываемой поверхности( a, мм ): </label>
+          <input required="" class="input_range" value="{{ request.form['Input1_frez'] }}" placeholder="Цифры от 1 до 9999" 
+          name="Input1_frez" id="Input1_frez"
+          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+          onchange="if (+this.value <= 9999) and (+this.value == 0)
+          {this.value = ''; alert ('значение не принято, введите другое'); this.focus ();}">
+        </div>
+        <div class="field">
+          <label for="Input2_frez">Введите длину обрабатываемой поверхности(b, мм ): </label>
+          <input required="" class="input_range" value="{{ request.form['Input2_frez'] }}" placeholder="Цифры от 1 до 9999" 
+          name="Input2_frez" id="Input2_frez"
+          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+          onchange="if (+this.value <= 9999) and (+this.value == 0)
+          {this.value = ''; alert ('значение не принято, введите другое'); this.focus ();}">
+        </div>
+        <div class="field">
+          <label for="Input3_frez">Введите глубину снимаемого слоя( h, мм ): </label>
+          <input required="" class="input_range" value="{{ request.form['Input3_frez'] }}" placeholder="Цифры от 1 до 9999" 
+          name="Input3_frez" id="Input3_frez"
+          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+          onchange="if (+this.value <= 9999) and (+this.value == 0)
+          {this.value = ''; alert ('значение не принято, введите другое'); this.focus ();}">
+        </div>
+      </div>
+      <input class="btn" id="btn" type="submit" value="Рассчитать"/>      
+    </form>
+    {% if calculation_sussecc == True %}
+    <form id="frez3" class="frez3">
+      <div class="labels">
+        <label>Глубина: Величина съема( s, мм ): {{ siem }}</label><br>
+        <label>Ширина: Величина перекрытия( А, мм ): {{ perek|round(1,'ceil') }}</label><br>
+        <label>Подача на зуб (f, мм/зуб): {{ zub }}</label><br>
+        <label>Cкорость резания (V, м/мин): {{ V_frez }}</label><br>
+        <label title="Формула: 1000*V/3,14*D">Обороты шпинделя (n, об/мин): {{ oborot_frez|round(2,'ceil') }}</label><br>
+        <label title="Формула: f*n*N">Подача ( f, мм/мин): {{ podacha_frez|round(2,'ceil') }}</label><br>
+        <label title="Формула: (b+D)/f">Время на один проход ( t, мин ): {{ time_prokhod_frez|round(2,'floor') }}</label><br>
+        <label title="Формула: a/D*h/s+a/D">Количество проходов ( m,шт ,): {{ kol_frez|round(0,'ceil') }}</label><br>
+        <label title="Формула: m*t">Основное время на обработку (Т, мин): {{ time_frez|round(2,'ceil') }}</label><br>
+        <label title="Формула: (1,32*Т)/60" class="answer">Общее время на обработку(час): {{ general_time_frez|round(3,'ceil') }}</label><br>
+      </div>
+    </form>
+    {% endif %}
+    {% if calculation_sussecc == False %}
+      {{error2}}
+    {% endif %}
+    
+
+    <footer>
+      
+    </footer>
+  </body>
+</html>

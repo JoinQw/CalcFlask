@@ -1,0 +1,9 @@
+Flask==2.2.2
+Jinja2==3.1.2
+peewee==3.15.4
+pipreqs==0.4.11
+requests==2.7.0
+virtualenv==20.16.7
+Werkzeug==2.2.2
+yarg==0.1.9
+yarl==1.6.2

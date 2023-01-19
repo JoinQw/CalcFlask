@@ -1,0 +1,43 @@
+.logo{
+    width: 75ex;
+    margin-left: 30em;
+    text-align: center;
+    font-size: 14;
+    color: rgb(245, 222, 179);
+
+}
+.text{
+    margin-left: 41em;
+    color: rgb(245, 222, 179);
+}
+ol{
+    margin-left: 36em;
+
+}
+li{
+    color: rgb(245, 222, 179);
+    margin-right: 80em;
+}
+
+body{
+    background-color: rgb(16, 67, 2);
+}
+p{
+    margin-left: 95ex;
+}
+input[type=submit]{
+    margin-top: 10px;
+    position: static; 
+    float: center;
+    text-align: center;
+    width: 255px;
+    height: 40px;
+    display: block;
+    margin-left: 1ex;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.35rem;
+    background-color: rgb(16, 67, 2);
+    color: rgb(245, 222, 179);
+    transition: border-color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;
+
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Flask Tutorial</title>
+  </head>
+  <body>
+    <calc>
+
+
+        <script>
+                        function getData(e){
+                                var rgData = $(e).serialize();                 
+                                $.ajax({
+                                        url: "/calc/calc-lentochnogo-fundamenta", type: "POST", data: {'u': rgData}, cache: false,                              
+                                        success: function(r){
+                                        $('#calc_result').html(r);			
+                                        }
+                                })
+                        }
+                </script>
+        
+         <script>
+        function divdis(id1,id2,id3,id4,id5,id6)
+        {
+        document.getElementById(id1).style.display= '';
+        document.getElementById(id2).style.display= '';
+        document.getElementById(id3).style.display= '';
+        document.getElementById(id4).style.display= 'none';
+        document.getElementById(id5).style.display= 'none';
+        document.getElementById(id6).style.display= 'none';
+        }                      
+        </script>
+        
+        
+        
+        <h1> Онлайн калькулятор расчета размеров, арматуры и количества бетона монолитного ленточного фундамента </h1>
+        
+            
+        <form onsubmit="getData(this); return false">
+        <div class="row xm"><span class="label"><span class="ttip"><span> В зависимости от количества и расположения несущих стен постройки.</span></span>
+        Тип фундамента</span><span class="input foundation">
+        <input type="radio" checked="" class="type" name="type" value="1s" onchange="divdis('dl','sl','sl','pers','ds','ds'); " id="rad-1"><label for="rad-1"><span class="mf"></span></label> 
+        <input type="radio" class="type" name="type" value="2s" onchange="divdis('dl','sl','sl','pers','ds','ds'); " id="rad-2"><label for="rad-2"><span class="mf mf2s"></span></label> 
+        <input type="radio" class="type" name="type" value="3s" onchange="divdis('dl','sl','ds','pers','pers','pers'); " id="rad-3"><label for="rad-3"><span class="mf mf3s"></span></label> 
+        <input type="radio" class="type" name="type" value="4s" onchange="divdis('dl','sl','sl','pers','ds','ds'); " id="rad-4"><label for="rad-4"><span class="mf mf4s"></span></label> 
+        <input type="radio" class="type" name="type" value="pers" onchange="divdis('pers','pers','pers','dl','sl','ds'); " id="rad-5"><label for="rad-5"><span class="mf mfss"></span></label>
+        </span></div>
+        
+        
+        
+        
+        <div class="row xm">
+        <span class="label">
+            <span class="ttip">
+                <span> В зависимости от требуемой прочности фундамента, а так же от погодных условий.</span>
+            </span>
+        Марка бетона
+        </span>
+        <span class="input">
+            <select name="mbet">
+                 <option value="70">М100 (В7,5) </option>
+                <option value="63">М150 (В10)</option>
+                <option selected="" value="49">М200 (В15)</option>
+                <option value="40">М250 (В20)</option>
+                <option value="37">М300 (В22.5)</option>
+                <option value="34">М350 (В25)</option>
+                <option value="30">М400 (В30)</option>
+                <option value="27">М450 (В35)</option>
+                <option value="26">М500 (В40)</option>
+                <option value="24">М550 (В45)</option>
+                <option value="23">М600 (В50)</option>
+                <option value="23">М700 (В55)</option>
+                <option value="22">М800 (В60)</option>
+            </select> 
+        </span>
+        </div>
+        
+        <div class="row xm" id="pers" style="display: none;"><span class="label"><span class="ttip"><span> Для не стандартных конфигураций фундаментов укажите общую длину ленты по осям с учетом всех внутренних перегородок. <br> Единицы измерения - метры. </span></span>
+        Общая длина ленты</span> <span class="input"><span class="nc-minus"></span><input type="text" name="perlenty" value="40">
+        
+            
+            <span class="nc-plus"></span>
+         
+        <span class="ed">метров</span>
+        </span></div>
+        <div class="row xm" id="sl" ><span class="label"><span class="ttip"><span> Ширина заложения фундамента. <br> Единицы измерения - метры. </span></span>
+        Ширина ленты <span class="red">А</span> </span><span class="input"><span class="nc-minus"></span><input type="text" name="shirinalenty" max="50" value="6"><span class="nc-plus"></span><span class="ed">метров</span>
+        </span></div>
+        <div class="row xm" id="dl" ><span class="label"><span class="ttip"><span> Длина заложения фундамента. <br> Единицы измерения - метры. </span></span>
+        Длина ленты <span class="red">B</span> </span><span class="input"><span class="nc-minus"></span><input type="text" name="dlinalenty" value="8"><span class="nc-plus"></span><span class="ed">метров</span>
+        </span></div>
+        <div class="row xm"><span class="label"><span class="ttip"><span> Высота сечения фундаментной ленты. <br> Единицы измерения - миллиметры. </span></span>
+        Высота ленты <span class="red">C</span> </span><span class="input"><span class="nc-minus"></span><input type="text" name="visotalenty" value="700"><span class="nc-plus"></span><span class="ed">мм</span>
+        </span></div>
+        <div class="row xm"><span class="label"><span class="ttip"><span> Ширина сечения фундаментной ленты. <br> Единицы измерения - миллиметры. </span></span>
+        Толщина ленты <span class="red">D</span> </span><span class="input"><span class="nc-minus"></span><input type="text" name="tolshinalenty" value="400"><span class="nc-plus"></span><span class="ed">мм</span>
+        </span></div>
+        <div class="row xm" id="ds" style="display: none;">
+        <span class="label">Длина ленты в середине <span class="red">E</span></span><span class="input"><span class="nc-minus"></span><input type="text" name="dlinalenty2" value="4"><span class="nc-plus"></span><span class="ed">метров</span>
+        </span></div>
+        
+        
+        
+        
+        <div class="add_header row"><input value="0" onclick="switchdiv('arm')" type="checkbox" id="check-1"> <label class="add_header row" for="check-1"><span class="add_field"></span>Расчет арматуры</label></div>
+        <div id="arm" style="display: none;">
+        <div class="row xm"> <span class="label"><span class="ttip"><span>Тонкий слой бетона/раствора низкой марки прочности под основанием фундамента.</span></span>
+        Бетонная подготовка</span><span class="input"><select name="bpod">
+        <option value="4">Есть</option>
+        <option value="7">Нет</option>
+            </select> 
+        </span></div>
+        <div class="row xm">
+        <span class="label"><span class="ttip"><span> Длина используемых стержней арматуры в арматурном каркасе. Максимальна длина арматуры в розничной продаже 11.7 метров<br> Единицы измерения - метры. </span></span>
+        Длина стержня арматуры</span><span class="input"><span class="nc-minus"></span><input type="text" name="dlinasterjna" value="11.7"><span class="nc-plus"></span><span class="ed">метров</span>
+        </span></div>
+        
+        <div class="row xm">
+        <span class="label"><span class="ttip"><span>Для ленточных фундаментов минимальное значение 0.2%, по 0.1% на каждый изгибаемый элемент (верхний и нижний пояс)</span></span>
+        Площадь сечения арматуры (<i>μ<sub>s min</sub></i>)*</span><span class="input"><select name="plsech" dir="rtl">
+        <option value="0.05">0.05</option>
+        <option value="0.1">0.1</option>
+        <option value="0.15">0.15</option>
+        <option selected="" value="0.2">0.2</option>
+        <option value="0.25">0.25</option>
+        <option value="0.3">0.3</option>
+        <option value="0.35">0.35</option>
+        <option value="0.4">0.4</option>
+            </select><span class="ed">%</span>
+        </span></div>
+        
+        
+        
+        
+        <p>*Площадь сечения продольной растянутой арматуры в процентах от рабочей площади сечения бетона, по формуле <i>μ<sub>s</sub>=A<sub>s</sub>/bh<sub>o</sub></i>*100%.</p>
+        <p>Более подробно в "ПОСОБИЕ
+        ПО ПРОЕКТИРОВАНИЮ БЕТОННЫХ
+        И ЖЕЛЕЗОБЕТОННЫХ КОНСТРУКЦИЙ
+        ИЗ ТЯЖЕЛОГО БЕТОНА БЕЗ
+        ПРЕДВАРИТЕЛЬНОГО НАПРЯЖЕНИЯ
+        АРМАТУРЫ
+        (к СП 52-101-2003)", пункт 5.11, таблица 5.2.</p>
+        
+        
+        <p></p><div class="note">Для точного расчета армирования железобетонных конструкций, с учетом характеристики грунтов и нагрузок, обязательно обратитесь к квалифицированным специалистам в вашем регионе</div><p></p>
+        
+        </div>
+        
+        
+        
+        <div class="add_header row"><input value="0" onclick="switchdiv('opl')" type="checkbox" id="check-2"><label class="add_header row" for="check-2"><span class="add_field"></span>Расчет опалубки</label></div>
+        <div id="opl" style="display: none;">
+        
+        <div class="row xm">
+        <span class="label"><span class="ttip"><span>Единицы измерения - миллиметры. </span></span> Ширина доски</span>
+        <span class="input"><span class="nc-minus"></span><input type="text" name="sdoski" value="150"><span class="nc-plus"></span><span class="ed">мм</span>
+        </span></div>
+        <div class="row xm">
+        <span class="label"><span class="ttip"><span>Единицы измерения - миллиметры. </span></span> Длина доски</span>
+        <span class="input"><span class="nc-minus"></span><input type="text" name="ddoski" value="6000"><span class="nc-plus"></span><span class="ed">мм</span>
+        </span></div>
+        <div class="row xm">
+        <span class="label"><span class="ttip"><span> Если значение не введено, будет расчитана оптимальная толщина доски при опорах каждый метр. Если значение указано, будет рассчитано оптимальное расстояние между опорами. <br> Единицы измерения - миллиметры. </span></span>
+        Толщина доски</span>
+        <span class="input"><span class="nc-minus"></span><input type="text" name="tdoski" value=""><span class="nc-plus"></span><span class="ed">мм</span>
+        </span></div>
+        
+        </div>
+        
+        
+        
+        
+        <div class="add_header row mdn"><input value="0" onclick="switchdiv('scr')" checked="" type="checkbox" id="check-3"><label class="add_header row" for="check-3"><span class="add_field"></span>Чертеж</label></div>
+        <div id="scr" class="img_before" style="display:block;">
+        <img src="img/1s.jpg" id="t" alt="Ленточный фундамент" title="Расчет ленточного фундамента" width="100%" height="auto">
+        </div>
+        
+        
+        
+        <span class="submit_button"><input class="submit" type="submit" value="Рассчитать" onclick="return r_click()"></span>
+        </form>
+        <span>
+        
+        <!-- Yandex.RTB R-A-140557-7 -->
+        <div id="yandex_rtb_R-A-140557-7"></div>
+        <script>window.yaContextCb.push(()=>{
+          Ya.Context.AdvManager.render({
+            renderTo: 'yandex_rtb_R-A-140557-7',
+            blockId: 'R-A-140557-7'
+          })
+        })</script>
+        
+         
+        
+        </span>
+        
+        
+        
+        
+        
+        
+        
+        <noscript><center><span style="color:#f00;"><b>Внимание! В настройках браузера отключена возможность "Использовать JavaSсript". Основной функционал сайта недоступен. Включите выполнение JavaScript в настройках вашего браузера.</b></span></center></noscript>
+        
+        <div id="calc_result">  </div>   
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="ya-share2 ya-share2_inited" data-services="collections,vkontakte,facebook,odnoklassniki,moimir" data-counter="ig"><div class="ya-share2__container ya-share2__container_size_m ya-share2__container_color-scheme_normal ya-share2__container_shape_normal"><ul class="ya-share2__list ya-share2__list_direction_horizontal"><li class="ya-share2__item ya-share2__item_service_vkontakte"><a class="ya-share2__link" href="https://vk.com/share.php?url=https%3A%2F%2Fstroy-calc.ru%2Fraschet-lentochnogo-fundamenta&amp;title=%D0%9A%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%BB%D0%B5%D0%BD%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%84%D1%83%D0%BD%D0%B4%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="ВКонтакте"><span class="ya-share2__badge"><span class="ya-share2__icon"></span></span><span class="ya-share2__title">ВКонтакте</span></a></li><li class="ya-share2__item ya-share2__item_service_odnoklassniki"><a class="ya-share2__link" href="https://connect.ok.ru/offer?url=https%3A%2F%2Fstroy-calc.ru%2Fraschet-lentochnogo-fundamenta&amp;title=%D0%9A%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%BB%D0%B5%D0%BD%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%84%D1%83%D0%BD%D0%B4%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="Одноклассники"><span class="ya-share2__badge"><span class="ya-share2__icon"></span></span><span class="ya-share2__title">Одноклассники</span></a></li><li class="ya-share2__item ya-share2__item_service_moimir"><a class="ya-share2__link" href="https://connect.mail.ru/share?url=https%3A%2F%2Fstroy-calc.ru%2Fraschet-lentochnogo-fundamenta&amp;title=%D0%9A%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%BB%D0%B5%D0%BD%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%84%D1%83%D0%BD%D0%B4%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="Мой Мир"><span class="ya-share2__badge"><span class="ya-share2__icon"></span></span><span class="ya-share2__title">Мой Мир</span></a></li></ul></div></div>
+        
+        </calc>
+  </body>
+</html>

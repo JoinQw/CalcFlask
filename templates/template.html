@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <title>Калькулятор</title>
+   <link rel="stylesheet" href="{{ url_for('static',     filename='css/template.css') }}">
+
+ </head>
+  <body>
+  
+    <header>
+      <div class="logo" align="center">
+        <h1>Специализированный калькулятор</h1>
+      </div>
+      <label class="text">Выберите тип калькулятора:</label>
+      <ol>
+        <li>
+          <form method="post" action="{{ url_for('calcs') }}" name="calcs" id="calcs" align="center">
+            <input type="submit" value="Калькулятор токаря" name="tokar" id="tokar">
+          </form>
+        </li>
+        <li>
+          <form method="posr" action="{{ url_for('cverl') }}" align="center" name="cverl" id="cverl">
+            <input type="submit" value="Калькулятор сверловщика" name="cverl" id="cverl">
+          </form>
+        </li>
+        <li>
+          <form method="post" action="{{ url_for('frez') }}" align="center" name="frez" id="frez">
+            <input type="submit" value="Калькулятор фрезеровщика" name="frez" id="frez">
+          </form>
+        </li>
+    </ol>
+          
+
+         
+          <!--<input type="submit" value="Общее время на наладку оборудования и обработку детали" name="nalad" id="nalad">
+          <input type="submit" value="Калькулятор резьбонарезчика" name="rezb" id="rezb">
+          <input type="submit" value="Калькулятор сварщика" name="cvar" id="cvar">
+          <input type="submit" value="Калькулятор резчика на лентопильных станках" name="lent" id="lent">
+          <input type="submit" value="Калькулятор резки плазмой" name="plazma" id="plazma">
+          <input type="submit" value="Калькулятор покраски" name="pokras" id="pokras">
+          <input type="submit" value="Калькулятор расчета каркасов" name="karkas" id="karkas">-->
+        
+      
+      
+
+    </header>
+  
+    
+ </body>
+</html>

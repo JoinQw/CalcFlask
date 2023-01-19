@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Калькулятор сверловщика</title>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/cverl.css') }}">
+    <script>
+      document.addEventListener("DOMContentLoaded", function() { // событие загрузки страницы
+
+      // выбираем на странице все элементы типа textarea и input
+      document.querySelectorAll('textarea, input', 'option').forEach(function(e) {
+      // если данные значения уже записаны в sessionStorage, то вставляем их в поля формы
+      // путём этого мы как раз берём данные из памяти браузера, если страница была случайно перезагружена
+      if(e.value === '') e.value = window.sessionStorage.getItem(e.name, e.value);
+      // на событие ввода данных (включая вставку с помощью мыши) вешаем обработчик
+      e.addEventListener('input', function() {
+      // и записываем в sessionStorage данные, в качестве имени используя атрибут name поля элемента ввода
+      window.sessionStorage.setItem(e.name, e.value);
+      })
+      })
+
+      }); 
+  
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+      var item = localStorage.getItem('material_cverl');
+      var select = document.getElementById("material_cverl");
+      select.value = item;
+      });
+      function submitForm(){
+      var select = document.getElementById("material_cverl");
+      var value = select.options[select.selectedIndex].value;
+      localStorage.setItem('material_cverl', value);
+      }
+    </script>
+
+  </head>
+  <body>
+
+    <form method="post" action="{{url_for('calc_cverl')}}" id="calc_cverl" class="cverl" onsubmit="submitForm()">
+      <h1 style="font-size:355%">Калькулятор сверловщика</h1>
+      
+      <p class="data">Исходные данные</p>
+      <div class="main">
+        <div class="field">
+          <label for="material_cverl">Выберите марку материала:</label>
+          <select id="material_cverl" name="material_cverl" class="material_cverl"> 
+            <option value="uglerodistaya" name="uglerodistaya">Углеродистая</option>
+            <option value="legirovannaya" name="legirovannaya">Легированная</option>
+            <option  value="nerjaveushaya" name="nerjaveushaya">Нержавеющая</option>
+            <option  value="zharoprochnaya" name="zharoprochnaya">Жаропрочная</option>
+            <option  value="bronza" name="bronza">Бронза</option>
+            <option  value="alluminii" name="alluminii">Аллюминий</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Input1_cverl">Введите диаметр сверла( d, мм )</label>
+          <input required="" class="input_range" value="{{ request.form['Input1_cverl'] }}" placeholder="Цифры от 1 до 80" 
+          autofocus type="text" name="Input1_cverl" id="Input1_cverl"
+          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+          onchange="if (+this.value <= 80) or (+this.value == 0)
+          {this.value = ''; alert ('значение не принято, введите другое'); this.focus ();}">
+        </div>
+        
+        <div class="field">
+          <label for="Input2_cverl">Введите глубину резания ( l, мм ): </label>
+          <input required="" class="input_range" value="{{ request.form['Input2_cverl'] }}" placeholder="Цифры от 1 до 9999" 
+          name="Input2_cverl" id="Input2_cverl"
+          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+          onchange="if (+this.value <= 9999) and (+this.value == 0)
+          {this.value = ''; alert ('значение не принято, введите другое'); this.focus ();}">
+        </div>
+    </div>
+
+
+      <input class="btn" id="btn" type="submit" value="Рассчитать"/>            
+    </form>
+    
+    {% if calculation_success == True %}
+      <form id="vnytr" name="vnytr" class="vnytr" align="center">
+        <p class="V">Режимы резания, внутреннее точение</p>
+      
+        <p>Скорость резания (V, м/мин): {{rez}}</p>
+      
+        <p>Подача резания согласно (t, мм/об): {{podacha_rez}}</p>
+          {% if podacha_rez == 0 %}
+            {{error}}
+          {% endif %}
+
+      <p title="Формула: 1000*V/3,14*d">Обороты шпинделя (n, об/мин): {{oborot_shin|round(2, 'ceil')}}</p>
+
+      <p title="Формула: l/(n*t)">Основное время на обработку (Т, мин): {{main_time_obrabotka|round(2, 'ceil')}}</p>
+
+      <p title="Формула: (1,32*Т)/60" class="P">Общее время на обработку (час): {{general_time_obrabotka|round(4, 'ceil')}}</p>
+      
+    </form>
+    {% endif %}
+      {% if calculation_success == False %}
+      <form>
+        <span class="error">
+          <p>Ваше введённое значение: {{Input1_cverl}} больше 80.0</p>
+          <p>Введите подходящие значение</p>
+        </span>
+      </form>
+      {% endif %}
+  </body>
+</html>
